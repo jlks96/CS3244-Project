@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Flatten, Dropout
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers.normalization import BatchNormalization
-from keras.optimizers import RMSprop
+from keras.optimizers import RMSprop, Adam
 import keras.applications as A
 import matplotlib.pyplot as plt
 
@@ -11,12 +11,12 @@ train_path = "input/train"
 test_path = "input/test"
 inputs = (50, 50, 3)
 
-vgg = A.vgg16.VGG16(weights='imagenet', include_top=False, input_shape=inputs)
+vgg = A.vgg16.VGG16(include_top=False, weights=None, input_shape=inputs)
 model = Sequential()
 # Add the vgg convolutional base model
 model.add(vgg)
 
-# Add new layers
+# Add fully connected layers
 model.add(Flatten())
 model.add(BatchNormalization())
 model.add(Dense(16, activation='relu'))
@@ -60,13 +60,13 @@ validation_generator = validation_datagen.flow_from_directory(
 )
 
 model.compile(loss='categorical_crossentropy',
-              optimizer=RMSprop(lr=1e-5),
+              optimizer=Adam(lr=1e-4),
               metrics=['acc'])
 
 # Train the model
 history = model.fit_generator(
       train_generator,
-      steps_per_epoch=100 ,
+      steps_per_epoch=100,
       epochs=100,
       validation_data=validation_generator,
       validation_steps=50,

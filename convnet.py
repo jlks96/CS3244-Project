@@ -32,13 +32,14 @@ model.add(Dense(2, activation='softmax'))
 model.summary()
 
 train_datagen = ImageDataGenerator(
+    rescale=1./255,
     rotation_range=20,
     width_shift_range=0.2,
     height_shift_range=0.2,
     horizontal_flip=True,
     fill_mode='nearest')
 
-validation_datagen = ImageDataGenerator()
+validation_datagen = ImageDataGenerator(rescale=1./255,)
 
 # Change the batchsize according to your system RAM
 train_batchsize = 32

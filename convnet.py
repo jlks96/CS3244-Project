@@ -84,6 +84,7 @@ plt.plot(epochs, acc, 'b', label='Training acc')
 plt.plot(epochs, val_acc, 'r', label='Validation acc')
 plt.title('Training and validation accuracy')
 plt.legend()
+plt.savefig('cnn_acccuracy.png')
 
 plt.figure()
 
@@ -91,5 +92,6 @@ plt.plot(epochs, loss, 'b', label='Training loss')
 plt.plot(epochs, val_loss, 'r', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
+plt.savefig('cnn_acccuracy.png')
 
 plt.show()
